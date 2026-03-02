@@ -1,64 +1,238 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Galeri Iman Kristen</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f0f8ff;
-        }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTR Connection</title>
 
-        h1 {
-            color: #2c3e50;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        .galeri {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #5f2c82, #49a09d);
+    color: white;
+    overflow-x: hidden;
+}
 
-        .galeri img {
-            width: 200px;
-            margin: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+header {
+    text-align: center;
+    padding: 40px 20px;
+}
 
-        .galeri img:hover {
-            transform: scale(1.05);
-        }
+header h1 {
+    font-size: 38px;
+    letter-spacing: 2px;
+}
 
-        #keterangan {
-            margin-top: 20px;
-            padding: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #34495e;
-        }
-    </style>
+header p {
+    opacity: 0.8;
+}
+
+.timeline {
+    position: relative;
+    max-width: 700px;
+    margin: 40px auto;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background: rgba(255,255,255,0.4);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+.item {
+    padding: 20px 40px;
+    position: relative;
+    width: 50%;
+    animation: fadeInUp 1s ease forwards;
+    opacity: 0;
+}
+
+.item:nth-child(1) { animation-delay: 0.2s; }
+.item:nth-child(2) { animation-delay: 0.4s; }
+.item:nth-child(3) { animation-delay: 0.6s; }
+.item:nth-child(4) { animation-delay: 0.8s; }
+.item:nth-child(5) { animation-delay: 1s; }
+
+.left { left: 0; }
+.right { left: 50%; }
+
+.card {
+    background: rgba(255,255,255,0.15);
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.card h3 {
+    margin-bottom: 15px;
+}
+
+.logo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 4px solid white;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.logo:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 25px white;
+}
+
+/* Popup Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 120px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+}
+
+.modal-content {
+    background: white;
+    color: #333;
+    margin: auto;
+    padding: 30px;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 20px;
+    text-align: center;
+    animation: zoomIn 0.4s ease;
+}
+
+.close {
+    float: right;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .item {
+        width: 100%;
+        left: 0 !important;
+        padding-left: 70px;
+    }
+    .timeline::after {
+        left: 30px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <h1>Galeri Iman Kristen</h1>
-    <p>Klik gambar untuk membaca pesan rohani</p>
+<header>
+    <h1>BTR Connection</h1>
+    <p>Building Together in Christ</p>
+</header>
 
-    <div class="galeri">
-        <img src="salib.png" onclick="tampil('Yohanes 3:16 - Karena begitu besar kasih Allah akan dunia ini...')">
-        <img src="alkitab.jpg" onclick="tampil('Mazmur 119:105 - Firman-Mu adalah pelita bagi kakiku dan terang bagi jalanku.')">
-        <img src="gereja.jpg" onclick="tampil('Matius 18:20 - Sebab di mana dua atau tiga orang berkumpul dalam nama-Ku...')">
+<div class="timeline">
+
+    <div class="item left">
+        <div class="card">
+            <h3>KAKR</h3>
+            <img src="logo1.png" class="logo" onclick="openModal('KAKR - Yesus Dijual<br><br>Lukas 22:2-6<br>Mazmur 41:5-10')">
+        </div>
     </div>
 
-    <div id="keterangan"></div>
+    <div class="item right">
+        <div class="card">
+            <h3>PERMATA</h3>
+            <img src="logo2.png" class="logo" onclick="openModal('PERMATA - Aku Kap Tuhan<br><br>Keluaran 34:5-9')">
+        </div>
+    </div>
 
-    <script>
-        function tampil(teks) {
-            document.getElementById("keterangan").innerHTML = teks;
-        }
-    </script>
+    <div class="item left">
+        <div class="card">
+            <h3>MORIA</h3>
+            <img src="logo3.png" class="logo" onclick="openModal('MORIA - Pusuh Peratenku Ngajari Aku<br><br>Mazmur 16:7-11')">
+        </div>
+    </div>
+
+    <div class="item right">
+        <div class="card">
+            <h3>MAMRE</h3>
+            <img src="logo4.png" class="logo" onclick="openModal('MAMRE - Beritaken Berita Si Meriah<br><br>Markus 16:14-18')">
+        </div>
+    </div>
+
+    <div class="item left">
+        <div class="card">
+            <h3>SAITUN</h3>
+            <img src="logo5.png" class="logo" onclick="openModal('SAITUN - Erkiteken Kristus Aku Enggo Rembak Ras Dibata<br><br>Efesus 2:1-6')">
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="modalText"></div>
+    </div>
+</div>
+
+<script>
+function openModal(text) {
+    document.getElementById("modalText").innerHTML = text;
+    document.getElementById("myModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+}
+
+window.onclick = function(event) {
+    var modal = document.getElementById("myModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 
 </body>
 </html>
