@@ -221,7 +221,6 @@ onclick="openOtherModal()">
 📄 Warta Jemaat Mingguan
 </button>
 
-<div id="pdfContainer"></div>
 <div id="pdfContainer" style="margin-top:20px; max-height:80vh; overflow:auto;"></div>
     
 </div>
@@ -245,7 +244,7 @@ document.getElementById("pdfContainer").innerHTML="";
 
 function viewPDF(file){
     document.getElementById("pdfContainer").innerHTML =
-    '<iframe src="'+file+'" style="width:100%; height:80vh; border:none;"></iframe>';
+    '<iframe src="'+file+'#toolbar=1&navpanes=0&scrollbar=1" style="width:100%; height:80vh; border:none;"></iframe>';
 }
 
 window.onclick=function(event){
@@ -258,5 +257,6 @@ document.getElementById("pdfContainer").innerHTML="";
 
 </body>
 </html>
+
 
 
