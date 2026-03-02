@@ -213,16 +213,17 @@ onclick="openOtherModal()">
 <span class="close" onclick="closeModal('otherModal')">&times;</span>
 <h3>Pilihan Lainnya</h3>
 
-<button class="modal-button" onclick="openPDF('jadwalpjjbtr.pdf')">
+<button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf')">
 📄 Jadwal PJJ BTR
 </button>
 
-<button class="modal-button" onclick="openPDF('momo1maret.pdf')">
+<button class="modal-button" onclick="viewPDF('momo1maret.pdf')">
 📄 Warta Jemaat Mingguan
 </button>
 
 <div id="pdfContainer"></div>
-
+<div id="pdfContainer" style="margin-top:20px; max-height:80vh; overflow:auto;"></div>
+    
 </div>
 </div>
 
@@ -242,9 +243,9 @@ document.getElementById(id).style.display="none";
 document.getElementById("pdfContainer").innerHTML="";
 }
 
-function openPDF(file){
-document.getElementById("pdfContainer").innerHTML=
-'<iframe src="'+file+'"></iframe>';
+function viewPDF(file){
+    document.getElementById("pdfContainer").innerHTML =
+    '<iframe src="'+file+'" style="width:100%; height:80vh; border:none;"></iframe>';
 }
 
 window.onclick=function(event){
@@ -257,4 +258,5 @@ document.getElementById("pdfContainer").innerHTML="";
 
 </body>
 </html>
+
 
