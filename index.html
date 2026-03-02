@@ -243,8 +243,11 @@ document.getElementById("pdfContainer").innerHTML="";
 }
 
 function viewPDF(file){
+    const url = window.location.origin + "/" + file;
+    const viewer = "https://docs.google.com/gview?url=" + url + "&embedded=true";
+    
     document.getElementById("pdfContainer").innerHTML =
-    '<embed src="'+file+'" type="application/pdf" width="100%" height="80vh">';
+    '<iframe src="'+viewer+'" width="100%" height="80vh" style="border:none;"></iframe>';
 }
 
 window.onclick=function(event){
@@ -257,6 +260,7 @@ document.getElementById("pdfContainer").innerHTML="";
 
 </body>
 </html>
+
 
 
 
