@@ -244,7 +244,7 @@ document.getElementById("pdfContainer").innerHTML="";
 
 function viewPDF(file){
     document.getElementById("pdfContainer").innerHTML =
-    '<iframe src="'+file+'#toolbar=1&navpanes=0&scrollbar=1" style="width:100%; height:80vh; border:none;"></iframe>';
+    '<embed src="'+file+'" type="application/pdf" width="100%" height="80vh">';
 }
 
 window.onclick=function(event){
@@ -257,6 +257,7 @@ document.getElementById("pdfContainer").innerHTML="";
 
 </body>
 </html>
+
 
 
 
