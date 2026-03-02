@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Galeri Iman Kristen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .galeri {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .galeri img {
+            width: 200px;
+            margin: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .galeri img:hover {
+            transform: scale(1.05);
+        }
+
+        #keterangan {
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #34495e;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Galeri Iman Kristen</h1>
+    <p>Klik gambar untuk membaca pesan rohani</p>
+
+    <div class="galeri">
+        <img src="salib.png" onclick="tampil('Yohanes 3:16 - Karena begitu besar kasih Allah akan dunia ini...')">
+        <img src="alkitab.jpg" onclick="tampil('Mazmur 119:105 - Firman-Mu adalah pelita bagi kakiku dan terang bagi jalanku.')">
+        <img src="gereja.jpg" onclick="tampil('Matius 18:20 - Sebab di mana dua atau tiga orang berkumpul dalam nama-Ku...')">
+    </div>
+
+    <div id="keterangan"></div>
+
+    <script>
+        function tampil(teks) {
+            document.getElementById("keterangan").innerHTML = teks;
+        }
+    </script>
+
+</body>
+</html>
