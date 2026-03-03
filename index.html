@@ -243,9 +243,15 @@ document.getElementById("pdfContainer").innerHTML="";
 }
 
 function viewPDF(file){
-    // Langsung menggunakan file lokal sebagai sumber iframe
+    // Mengambil URL absolut dari file yang berada di folder yang sama dengan index.html
+    const url = new URL(file, window.location.href).href;
+    
+    // Encode URL agar karakter khusus tidak merusak link
+    const encodedUrl = encodeURIComponent(url);
+    const viewer = "https://docs.google.com/gview?url=" + encodedUrl + "&embedded=true";
+    
     document.getElementById("pdfContainer").innerHTML =
-    '<iframe src="' + file + '" width="100%" height="500px" style="border:none;"></iframe>';
+    '<iframe src="'+viewer+'" width="100%" height="500px" style="border:none;"></iframe>';
 }
 
 window.onclick=function(event){
@@ -258,6 +264,7 @@ document.getElementById("pdfContainer").innerHTML="";
 
 </body>
 </html>
+
 
 
 
