@@ -96,17 +96,10 @@ header { text-align:center; padding:60px 20px; opacity: 0; transition: 1s; }
 .logo{
     width:100px; height:100px; border-radius:50%; border:2px solid white;
     margin-bottom: 15px; cursor:pointer; transition: 0.3s;
+    object-fit: cover;
 }
 
 .logo:active { transform: scale(0.9); }
-
-/* --- LOGO ABOUT PJJ BTR (SVG) --- */
-.premium-logo-svg {
-    width: 100px; height: 100px; margin-bottom: 15px; cursor: pointer;
-    filter: drop-shadow(0 0 5px rgba(214, 175, 55, 0.3));
-    transition: 0.4s;
-}
-.premium-logo-svg:hover { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 15px var(--gold)); }
 
 /* --- MODAL --- */
 .modal{
@@ -166,14 +159,7 @@ header { text-align:center; padding:60px 20px; opacity: 0; transition: 1s; }
     <div class="item left">
         <div class="card">
             <h3>ABOUT PJJ BTr</h3>
-            <svg class="premium-logo-svg" viewBox="0 0 100 100" onclick="openAboutModal()">
-                <circle cx="50" cy="50" r="48" fill="none" stroke="#D4AF37" stroke-width="2"/>
-                <path d="M25 75 Q 35 65, 50 65 Q 65 65, 75 75 L 75 78 Q 65 68, 50 68 Q 35 68, 25 78 Z" fill="#D4AF37"/>
-                <rect x="48" y="22" width="4" height="45" rx="1" fill="#D4AF37"/>
-                <rect x="32" y="35" width="36" height="4" rx="1" fill="#D4AF37"/>
-                <path d="M48 55 Q 42 50, 38 42 Q 34 35, 36 30 L 41 33 Q 39 38, 43 45 Z" fill="#D4AF37"/>
-                <path d="M52 55 Q 58 50, 62 42 Q 66 35, 64 30 L 59 33 Q 61 38, 57 45 Z" fill="#D4AF37"/>
-            </svg>
+            <img src="pjjbtrlogo.jpeg" class="logo" onclick="openAboutModal()" alt="Logo PJJ BTr">
         </div>
     </div>
 
@@ -195,8 +181,8 @@ header { text-align:center; padding:60px 20px; opacity: 0; transition: 1s; }
     <div class="modal-content">
         <span class="close" onclick="closeModal('aboutModal')">&times;</span>
         <h2 style="margin-bottom:20px;">About PJJ BTr</h2>
-        <button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf', 'aboutPdfContainer')">📄 Jadwal PJJ</button>
-        <button class="modal-button" onclick="viewPDF('nominatifpjjbtr2026.pdf', 'aboutPdfContainer')">📄 Nominatif PJJ</button>
+        <button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf', 'aboutPdfContainer')">📑 Jadwal PJJ</button>
+        <button class="modal-button" onclick="viewPDF('nominatifpjjbtr2026.pdf', 'aboutPdfContainer')">📑 Nominatif PJJ</button>
         <div id="aboutPdfContainer"></div>
     </div>
 </div>
@@ -205,8 +191,8 @@ header { text-align:center; padding:60px 20px; opacity: 0; transition: 1s; }
     <div class="modal-content">
         <span class="close" onclick="closeModal('otherModal')">&times;</span>
         <h2 style="margin-bottom:20px;">Informasi Jemaat</h2>
-        <button class="modal-button" onclick="viewPDF('momo1maret.pdf', 'pdfContainer')">📄 Warta Jemaat</button>
-        <button class="modal-button" onclick="viewPDF('almanak2026.pdf', 'pdfContainer')">📄 Almanak 2026</button>
+        <button class="modal-button" onclick="viewPDF('momo1maret.pdf', 'pdfContainer')">📑 Warta Jemaat</button>
+        <button class="modal-button" onclick="viewPDF('almanak2026.pdf', 'pdfContainer')">📑 Almanak 2026</button>
         <div id="pdfContainer"></div>
     </div>
 </div>
