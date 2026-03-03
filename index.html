@@ -78,44 +78,49 @@ header h1{
     display:none;
     position:fixed;
     z-index:1000;
-    padding-top:120px;
     left:0;
     top:0;
     width:100%;
     height:100%;
     background:rgba(0,0,0,0.6);
     backdrop-filter:blur(6px);
+    overflow-y: auto; /* Memungkinkan scroll pada modal itu sendiri di HP */
 }
 
 .modal-content{
     background:white;
     color:#333;
-    margin:auto;
-    padding:30px;
-    width:90%;
-    max-width:450px;
+    margin: 50px auto;
+    padding:20px;
+    width:95%;
+    max-width:500px;
     border-radius:20px;
     text-align:center;
     animation:zoomIn 0.3s ease;
+    position: relative;
 }
 
 .close{
-    float:right;
-    font-size:22px;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size:28px;
+    font-weight: bold;
     cursor:pointer;
+    color: #666;
 }
 
 /* Tombol dalam modal */
 .modal-button{
-    display:block;
-    margin:15px 0;
-    padding:12px;
+    display:inline-block;
+    margin:5px;
+    padding:10px 15px;
     background:#5f2c82;
     color:white;
     border:none;
     border-radius:12px;
     cursor:pointer;
-    font-size:16px;
+    font-size:14px;
     transition:0.3s;
 }
 
@@ -123,11 +128,23 @@ header h1{
     background:#49a09d;
 }
 
-iframe{
-    width:100%;
-    height:400px;
-    border:none;
-    margin-top:15px;
+/* Container PDF Khusus Mobile Scroll */
+#pdfContainer {
+    margin-top: 15px;
+    width: 100%;
+    height: 65vh; /* Menggunakan 65% tinggi layar hp */
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; /* Scroll halus di iOS */
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
+
+#pdfContainer iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
 }
 
 @keyframes zoomIn{
@@ -144,6 +161,7 @@ iframe{
     .timeline::after{
         left:30px;
     }
+    header h1 { font-size: 28px; }
 }
 </style>
 </head>
@@ -156,130 +174,109 @@ iframe{
 </header>
 
 <div class="timeline">
+    <div class="item left">
+        <div class="card">
+            <h3>KAKR</h3>
+            <img src="logokakr.png" class="logo" onclick="openModal('KAKR - Yesus Dijual<br><br>Lukas 22:2-6<br>Mazmur 41:5-10')">
+        </div>
+    </div>
 
-<div class="item left">
-<div class="card">
-<h3>KAKR</h3>
-<img src="logokakr.png" class="logo"
-onclick="openModal('KAKR - Yesus Dijual<br><br>Lukas 22:2-6<br>Mazmur 41:5-10')">
-</div>
-</div>
+    <div class="item right">
+        <div class="card">
+            <h3>PERMATA</h3>
+            <img src="logopermata.png" class="logo" onclick="openModal('PERMATA - Aku Kap Tuhan<br><br>Keluaran 34:5-9')">
+        </div>
+    </div>
 
-<div class="item right">
-<div class="card">
-<h3>PERMATA</h3>
-<img src="logopermata.png" class="logo"
-onclick="openModal('PERMATA - Aku Kap Tuhan<br><br>Keluaran 34:5-9')">
-</div>
-</div>
+    <div class="item left">
+        <div class="card">
+            <h3>MORIA</h3>
+            <img src="logomoria.png" class="logo" onclick="openModal('MORIA - Pusuh Peratenku Ngajari Aku<br><br>Mazmur 16:7-11')">
+        </div>
+    </div>
 
-<div class="item left">
-<div class="card">
-<h3>MORIA</h3>
-<img src="logomoria.png" class="logo"
-onclick="openModal('MORIA - Pusuh Peratenku Ngajari Aku<br><br>Mazmur 16:7-11')">
-</div>
-</div>
+    <div class="item right">
+        <div class="card">
+            <h3>MAMRE</h3>
+            <img src="logomamre.png" class="logo" onclick="openModal('MAMRE - Beritaken Berita Si Meriah<br><br>Markus 16:14-18')">
+        </div>
+    </div>
 
-<div class="item right">
-<div class="card">
-<h3>MAMRE</h3>
-<img src="logomamre.png" class="logo"
-onclick="openModal('MAMRE - Beritaken Berita Si Meriah<br><br>Markus 16:14-18')">
-</div>
-</div>
-
-<div class="item left">
-<div class="card">
-<h3>LAINNYA</h3>
-<img src="logogbkp.png" class="logo"
-onclick="openOtherModal()">
-</div>
+    <div class="item left">
+        <div class="card">
+            <h3>LAINNYA</h3>
+            <img src="logogbkp.png" class="logo" onclick="openOtherModal()">
+        </div>
+    </div>
 </div>
 
-</div>
-
-<!-- Modal Detail Biasa -->
 <div id="mainModal" class="modal">
-<div class="modal-content">
-<span class="close" onclick="closeModal('mainModal')">&times;</span>
-<div id="modalText"></div>
-</div>
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('mainModal')">&times;</span>
+        <div id="modalText"></div>
+    </div>
 </div>
 
-<!-- Modal Lainnya -->
 <div id="otherModal" class="modal">
-<div class="modal-content">
-<span class="close" onclick="closeModal('otherModal')">&times;</span>
-<h3>Pilihan Lainnya</h3>
+    <div class="modal-content" style="max-width: 600px;">
+        <span class="close" onclick="closeModal('otherModal')">&times;</span>
+        <h3 style="margin-bottom:15px;">Pilihan Lainnya</h3>
 
-<button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf')">
-📄 Jadwal PJJ BTR
-</button>
+        <button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf')">
+            📄 Jadwal PJJ BTR
+        </button>
 
-<button class="modal-button" onclick="viewPDF('momo1maret.pdf')">
-📄 Warta Jemaat Mingguan
-</button>
+        <button class="modal-button" onclick="viewPDF('momo1maret.pdf')">
+            📄 Warta Jemaat
+        </button>
 
-<div id="pdfContainer" style="margin-top:20px; max-height:80vh; overflow:auto;"></div>
-    
-</div>
+        <div id="pdfContainer">
+            <p style="padding: 50px 10px; color: #999;">Pilih dokumen di atas untuk melihat pratinjau</p>
+        </div>
+    </div>
 </div>
 
 <script>
-
 function openModal(text){
-document.getElementById("modalText").innerHTML=text;
-document.getElementById("mainModal").style.display="block";
+    document.getElementById("modalText").innerHTML=text;
+    document.getElementById("mainModal").style.display="block";
 }
 
 function openOtherModal(){
-document.getElementById("otherModal").style.display="block";
+    document.getElementById("otherModal").style.display="block";
 }
 
 function closeModal(id){
-document.getElementById(id).style.display="none";
-document.getElementById("pdfContainer").innerHTML="";
+    document.getElementById(id).style.display="none";
+    if(id === 'otherModal'){
+        document.getElementById("pdfContainer").innerHTML='<p style="padding: 50px 10px; color: #999;">Pilih dokumen di atas untuk melihat pratinjau</p>';
+    }
 }
 
 function viewPDF(file){
-    // Menghapus isi container sebelumnya
     const container = document.getElementById("pdfContainer");
-    container.innerHTML = "";
     
-    // Membuat elemen iframe baru
-    const ifrm = document.createElement("iframe");
+    // Memberikan feedback visual saat loading
+    container.innerHTML = '<p style="padding: 50px 10px; color: #999;">Memuat dokumen...</p>';
     
-    // Memanggil file PDF langsung dari direktori GitHub Anda
-    ifrm.setAttribute("src", file); 
-    
-    // Mengatur ukuran agar pas di dalam modal
-    ifrm.style.width = "100%";
-    ifrm.style.height = "500px";
-    ifrm.style.border = "none";
-    
-    container.appendChild(ifrm);
+    // Gunakan setTimeout agar transisi mulus
+    setTimeout(() => {
+        // Kita menggunakan URL absolut agar lebih stabil di berbagai browser mobile
+        const fullUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) + file;
+        
+        // Membuat iframe dengan atribut agar tidak langsung download di mobile
+        container.innerHTML = `<iframe src="${fullUrl}#toolbar=0&navpanes=0&scrollbar=1" type="application/pdf"></iframe>`;
+    }, 300);
 }
 
+// Menutup modal jika klik di luar kotak putih
 window.onclick=function(event){
-if(event.target.classList.contains('modal')){
-event.target.style.display="none";
-document.getElementById("pdfContainer").innerHTML="";
-}
+    if(event.target.classList.contains('modal')){
+        event.target.style.display="none";
+        document.getElementById("pdfContainer").innerHTML='<p style="padding: 50px 10px; color: #999;">Pilih dokumen di atas untuk melihat pratinjau</p>';
+    }
 }
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
