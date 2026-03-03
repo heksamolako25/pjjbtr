@@ -131,11 +131,11 @@ header h1{ font-size:38px; letter-spacing:2px; }
 }
 .modal-button:hover{ background:#49a09d; }
 
-#pdfContainer {
-    margin-top: 15px; width: 100%; height: 65vh; border: 1px solid #ccc;
+#pdfContainer, #aboutPdfContainer {
+    margin-top: 15px; width: 100%; height: 60vh; border: 1px solid #ccc;
     border-radius: 10px; background: #fff; overflow: auto; -webkit-overflow-scrolling: touch;
 }
-#pdfContainer object, #pdfContainer iframe { width: 100%; height: 100%; border: none; }
+object, iframe { width: 100%; height: 100%; border: none; }
 
 @keyframes zoomIn{ from{transform:scale(0.8);opacity:0;} to{transform:scale(1);opacity:1;} }
 
@@ -166,11 +166,47 @@ header h1{ font-size:38px; letter-spacing:2px; }
 </header>
 
 <div class="timeline">
-    <div class="item left"><div class="card"><h3>KAKR</h3><img src="logokakr.png" class="logo" onclick="openModal('KAKR - Yesus Dijual<br><br>Lukas 22:2-6<br>Mazmur 41:5-10')"></div></div>
-    <div class="item right"><div class="card"><h3>PERMATA</h3><img src="logopermata.png" class="logo" onclick="openModal('PERMATA - Aku Kap Tuhan<br><br>Keluaran 34:5-9')"></div></div>
-    <div class="item left"><div class="card"><h3>MORIA</h3><img src="logomoria.png" class="logo" onclick="openModal('MORIA - Pusuh Peratenku Ngajari Aku<br><br>Mazmur 16:7-11')"></div></div>
-    <div class="item right"><div class="card"><h3>MAMRE</h3><img src="logomamre.png" class="logo" onclick="openModal('MAMRE - Beritaken Berita Si Meriah<br><br>Markus 16:14-18')"></div></div>
-    <div class="item left"><div class="card"><h3>LAINNYA</h3><img src="logogbkp.png" class="logo" onclick="openOtherModal()"></div></div>
+    <div class="item left">
+        <div class="card">
+            <h3>ABOUT PJJ BTr</h3>
+            <img src="logogbkp.png" class="logo" onclick="openAboutModal()">
+        </div>
+    </div>
+
+    <div class="item right">
+        <div class="card">
+            <h3>MAMRE</h3>
+            <img src="logomamre.png" class="logo" onclick="openModal('MAMRE - Beritaken Berita Si Meriah<br><br>Markus 16:14-18')">
+        </div>
+    </div>
+
+    <div class="item left">
+        <div class="card">
+            <h3>MORIA</h3>
+            <img src="logomoria.png" class="logo" onclick="openModal('MORIA - Pusuh Peratenku Ngajari Aku<br><br>Mazmur 16:7-11')">
+        </div>
+    </div>
+
+    <div class="item right">
+        <div class="card">
+            <h3>PERMATA</h3>
+            <img src="logopermata.png" class="logo" onclick="openModal('PERMATA - Aku Kap Tuhan<br><br>Keluaran 34:5-9')">
+        </div>
+    </div>
+
+    <div class="item left">
+        <div class="card">
+            <h3>KAKR</h3>
+            <img src="logokakr.png" class="logo" onclick="openModal('KAKR - Yesus Dijual<br><br>Lukas 22:2-6<br>Mazmur 41:5-10')">
+        </div>
+    </div>
+
+    <div class="item right">
+        <div class="card">
+            <h3>LAINNYA</h3>
+            <img src="logogbkp.png" class="logo" onclick="openOtherModal()">
+        </div>
+    </div>
 </div>
 
 <div id="mainModal" class="modal">
@@ -180,18 +216,26 @@ header h1{ font-size:38px; letter-spacing:2px; }
     </div>
 </div>
 
+<div id="aboutModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('aboutModal')">&times;</span>
+        <h3 style="margin-bottom:15px;">About PJJ BTr</h3>
+        <button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf', 'aboutPdfContainer')">📄 Jadwal PJJ</button>
+        <button class="modal-button" onclick="viewPDF('nominatifpjjbtr2026.pdf', 'aboutPdfContainer')">📄 Nominatif PJJ</button>
+        <div id="aboutPdfContainer">
+            <p style="padding: 50px 10px; color: #999;">Pilih dokumen untuk pratinjau</p>
+        </div>
+    </div>
+</div>
+
 <div id="otherModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('otherModal')">&times;</span>
-        <h3 style="margin-bottom:15px;">Pilihan Lainnya</h3>
-
-        <button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf')">📄 Jadwal PJJ</button>
-        <button class="modal-button" onclick="viewPDF('momo1maret.pdf')">📄 Warta Jemaat</button>
-        <button class="modal-button" onclick="viewPDF('nominatifpjjbtr2026.pdf')">📄 Nominatif PJJ</button>
-        <button class="modal-button" onclick="viewPDF('almanak2026.pdf')">📄 Almanak</button>
-
+        <h3 style="margin-bottom:15px;">Informasi Jemaat</h3>
+        <button class="modal-button" onclick="viewPDF('momo1maret.pdf', 'pdfContainer')">📄 Warta Jemaat</button>
+        <button class="modal-button" onclick="viewPDF('almanak2026.pdf', 'pdfContainer')">📄 Almanak</button>
         <div id="pdfContainer">
-            <p style="padding: 50px 10px; color: #999;">Pilih dokumen di atas untuk pratinjau</p>
+            <p style="padding: 50px 10px; color: #999;">Pilih dokumen untuk pratinjau</p>
         </div>
     </div>
 </div>
@@ -207,27 +251,34 @@ function openModal(text){
     document.getElementById("mainModal").style.display="block";
 }
 
+function openAboutModal(){
+    document.getElementById("aboutModal").style.display="block";
+}
+
 function openOtherModal(){
     document.getElementById("otherModal").style.display="block";
 }
 
 function closeModal(id){
     document.getElementById(id).style.display="none";
-    if(id === 'otherModal'){
-        document.getElementById("pdfContainer").innerHTML='<p style="padding: 50px 10px; color: #999;">Pilih dokumen di atas untuk pratinjau</p>';
-    }
+    // Reset pratinjau saat modal ditutup
+    const containers = ['pdfContainer', 'aboutPdfContainer'];
+    containers.forEach(c => {
+        const el = document.getElementById(c);
+        if(el) el.innerHTML = '<p style="padding: 50px 10px; color: #999;">Pilih dokumen untuk pratinjau</p>';
+    });
 }
 
-function viewPDF(file){
-    const container = document.getElementById("pdfContainer");
+function viewPDF(file, containerId){
+    const container = document.getElementById(containerId);
     container.innerHTML = '<p style="padding: 50px 10px; color: #999;">Memuat dokumen...</p>';
     
     setTimeout(() => {
         const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-        const fileUrl = baseUrl + file + "?v=" + new Date().getTime();
+        const fileUrl = baseUrl + file + "?v=" + new Date().getTime(); // Anti-cache
         
         container.innerHTML = `
-            <object data="${fileUrl}" type="application/pdf" style="width:100%; height:100%;">
+            <object data="${fileUrl}" type="application/pdf">
                 <iframe src="${fileUrl}#toolbar=0&navpanes=0&scrollbar=1">
                     <p>Browser tidak mendukung pratinjau. <a href="${fileUrl}">Klik untuk unduh.</a></p>
                 </iframe>
@@ -236,10 +287,9 @@ function viewPDF(file){
     }, 300);
 }
 
-window.onclick=function(event){
+window.onclick = function(event){
     if(event.target.classList.contains('modal')){
-        event.target.style.display="none";
-        document.getElementById("pdfContainer").innerHTML='<p style="padding: 50px 10px; color: #999;">Pilih dokumen di atas untuk pratinjau</p>';
+        closeModal(event.target.id);
     }
 }
 </script>
