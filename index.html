@@ -91,6 +91,84 @@ body{
     }
 }
 
+/* --- ANIMASI INTERAKTIF PADA BUTTON & CARD --- */
+
+/* Efek kartu saat muncul di layar (sudah ada sebelumnya, kita perhalus) */
+.item { 
+    padding: 20px 40px; 
+    position: relative; 
+    width: 50%; 
+    opacity: 0; 
+    transform: translateY(30px); 
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+}
+
+/* Efek saat Logo disentuh (Hover) */
+.logo {
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%; 
+    border: 2px solid white;
+    margin-bottom: 10px; 
+    cursor: pointer;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 0 rgba(255,255,255,0);
+}
+
+.logo:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 20px rgba(255,255,255,0.6);
+    border-color: var(--secondary);
+}
+
+/* Efek "Klik" (Active State) */
+.logo:active, .modal-button:active {
+    transform: scale(0.9);
+    filter: brightness(0.8);
+}
+
+/* Animasi Modal Jatuh (Bounce) */
+@keyframes modalFall {
+    0% { transform: translateY(-100px) scale(0.8); opacity: 0; }
+    60% { transform: translateY(10px) scale(1.02); opacity: 1; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.modal-content {
+    background: #fff; 
+    color:#111; 
+    margin: 5vh auto; 
+    padding: 30px 15px;
+    width: 90%; 
+    max-width: 600px; 
+    border-radius: 30px; 
+    text-align: center;
+    position: relative;
+    /* Tambahkan animasi ini */
+    animation: modalFall 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Tambahkan efek kilau (Shimmer) pada tombol modal */
+.modal-button {
+    position: relative;
+    overflow: hidden;
+    /* ... kode sebelumnya ... */
+}
+
+.modal-button::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: rotate(45deg);
+    transition: 0.5s;
+}
+
+.modal-button:hover::after {
+    left: 100%;
+}
+
 /* --- MAIN UI --- */
 header{ text-align:center; padding:60px 20px; }
 header h1{ font-size:32px; letter-spacing:3px; text-transform: uppercase; }
@@ -212,13 +290,25 @@ function closeWelcome() {
 }
 
 function openModal(text){
-    document.getElementById("modalText").innerHTML = text;
-    document.getElementById("mainModal").style.display = "block";
+    setTimeout(() => {
+        document.getElementById("modalText").innerHTML = text;
+        document.getElementById("mainModal").style.display = "block";
+    }, 100);
 }
-
-function openAboutModal(){ document.getElementById("aboutModal").style.display = "block"; }
-function openOtherModal(){ document.getElementById("otherModal").style.display = "block"; }
-
+    
+function openAboutModal(){ 
+    // Berikan efek klik visual sebentar sebelum muncul
+    setTimeout(() => {
+        document.getElementById("aboutModal").style.display = "block"; 
+    }, 100);
+}
+    
+function openOtherModal(){ 
+    setTimeout(() => {
+        document.getElementById("otherModal").style.display = "block"; 
+    }, 100);
+}
+    
 function closeModal(id){
     document.getElementById(id).style.display = "none";
     const containers = ['pdfContainer', 'aboutPdfContainer'];
@@ -251,5 +341,6 @@ window.onclick = function(event){
 
 </body>
 </html>
+
 
 
