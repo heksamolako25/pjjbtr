@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PJJ BTr Connection</title>
+<title>BTR Connection Premium</title>
 
 <style>
 :root {
@@ -24,118 +24,103 @@ body{
     overflow-x:hidden;
 }
 
-/* --- PREMIUM WELCOME OVERLAY --- */
-.welcome-overlay {
+/* --- FIX WELCOME OVERLAY --- */
+#welcomeOverlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: #000;
     display: flex; justify-content: center; align-items: center;
-    z-index: 3000;
-    transition: 1s cubic-bezier(0.85, 0, 0.15, 1);
+    z-index: 9999; /* Pastikan paling atas */
+    transition: 0.8s cubic-bezier(0.85, 0, 0.15, 1);
 }
 
-.welcome-content { text-align: center; }
+.welcome-content { text-align: center; z-index: 10000; }
 
 .animate-text-bold {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 800;
-    background: linear-gradient(to right, #fff, #49a09d);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    opacity: 0; transform: scale(0.9);
-    animation: premiumFadeIn 1.2s forwards 0.5s;
-}
-
-@keyframes premiumFadeIn {
-    to { opacity: 1; transform: scale(1); }
+    color: white;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
 }
 
 .welcome-btn {
-    margin-top: 40px;
-    padding: 15px 45px;
-    background: transparent;
-    color: white;
-    border: 1px solid white;
+    padding: 15px 40px;
+    background: white;
+    color: black;
+    border: none;
     border-radius: 50px;
     font-size: 1rem;
-    letter-spacing: 2px;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.5s;
-    opacity: 0;
-    animation: fadeIn 1s forwards 1.5s;
+    transition: 0.3s;
 }
 
-.welcome-btn:hover { background: white; color: black; }
+.welcome-btn:hover { transform: scale(1.1); background: #eee; }
 
 /* --- MAIN UI --- */
-header{ text-align:center; padding:80px 20px; }
-header h1{ font-size:48px; font-weight: 700; letter-spacing:5px; text-transform: uppercase; }
+header{ text-align:center; padding:60px 20px; }
+header h1{ font-size:32px; letter-spacing:3px; text-transform: uppercase; }
 
-.timeline{ position:relative; max-width:850px; margin:40px auto; padding-bottom: 50px; }
+.timeline{ position:relative; max-width:800px; margin:20px auto; padding-bottom: 50px; }
 .timeline::after{
-    content:''; position:absolute; width:2px; background: linear-gradient(to bottom, transparent, var(--border), transparent);
+    content:''; position:absolute; width:2px; background: rgba(255,255,255,0.2);
     top:0; bottom:0; left:50%; margin-left:-1px;
 }
 
-.item{ padding:30px 40px; position:relative; width:50%; opacity: 0; transform: translateY(30px); transition: 1s; }
-.item.visible { opacity: 1; transform: translateY(0); }
+.item{ padding:20px 40px; position:relative; width:50%; }
+.left{left:0;} .right{left:50%;}
 
 .card{
     background: var(--glass);
-    padding:30px; border-radius:30px;
-    backdrop-filter: blur(20px);
+    padding:20px; border-radius:25px;
+    backdrop-filter: blur(15px);
     border: 1px solid var(--border);
     text-align:center;
     box-shadow: var(--shadow);
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
-.card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.18); }
 
 .logo{
-    width:120px; height:120px; border-radius:50%; border:3px solid white;
-    margin-bottom: 15px; cursor:pointer; object-fit: cover;
+    width:100px; height:100px; border-radius:50%; border:2px solid white;
+    margin-bottom: 10px; cursor:pointer;
 }
 
-/* --- LUXURY MODAL --- */
+/* --- MODAL --- */
 .modal{
     display:none; position:fixed; z-index:2000; left:0; top:0;
-    width:100%; height:100%; background:rgba(0,0,0,0.85);
-    backdrop-filter:blur(15px);
+    width:100%; height:100%; background:rgba(0,0,0,0.8);
+    backdrop-filter:blur(10px);
 }
 
 .modal-content{
-    background: #fff; color:#111; margin: 5vh auto; padding:40px 20px;
-    width:92%; max-width:750px; border-radius:40px; text-align:center;
-    position: relative; overflow: hidden;
+    background: #fff; color:#111; margin: 5vh auto; padding:30px 15px;
+    width:90%; max-width:600px; border-radius:30px; text-align:center;
+    position: relative;
 }
 
-.close{ position: absolute; right: 25px; top: 20px; font-size:32px; cursor:pointer; color: #999; }
+.close{ position: absolute; right: 20px; top: 15px; font-size:30px; cursor:pointer; color: #999; }
 
 .modal-button{
-    display:inline-block; margin:8px; padding:12px 25px; 
-    background:#111; color:white; border:none; border-radius:50px;
-    cursor:pointer; font-size:14px; font-weight: 600; transition:0.3s;
+    display:inline-block; margin:5px; padding:10px 20px; 
+    background:var(--primary); color:white; border:none; border-radius:50px;
+    cursor:pointer; font-size:13px; font-weight: 600;
 }
-.modal-button:hover{ background: var(--primary); transform: translateY(-3px); }
 
 #pdfContainer, #aboutPdfContainer {
-    margin-top: 25px; width: 100%; height: 60vh; border-radius: 20px;
-    background: #f4f4f4; overflow: hidden; box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    margin-top: 20px; width: 100%; height: 60vh; border-radius: 15px;
+    background: #f0f0f0; overflow: auto; -webkit-overflow-scrolling: touch;
 }
 
 @media screen and (max-width:600px){
     .item{ width:100%; left:0 !important; padding-left:50px; }
     .timeline::after{ left:20px; }
-    header h1 { font-size: 32px; }
-    .animate-text-bold { font-size: 2rem; }
 }
 </style>
 </head>
 
 <body>
 
-<div id="welcomeOverlay" class="welcome-overlay">
+<div id="welcomeOverlay">
     <div class="welcome-content">
         <h1 class="animate-text-bold">BTr CONNECTION</h1>
         <button class="welcome-btn" onclick="closeWelcome()">ENTER EXPERIENCE</button>
@@ -144,10 +129,10 @@ header h1{ font-size:48px; font-weight: 700; letter-spacing:5px; text-transform:
 
 <header>
     <h1>BTr Connection</h1>
-    <p style="opacity: 0.7; letter-spacing: 3px;">BUILDING TOGETHER IN CHRIST</p>
+    <p style="opacity: 0.8;">BUILDING TOGETHER IN CHRIST</p>
 </header>
 
-<div class="timeline" id="timeline">
+<div class="timeline">
     <div class="item left"><div class="card"><h3>ABOUT PJJ BTr</h3><img src="logogbkp.png" class="logo" onclick="openAboutModal()"></div></div>
     <div class="item right"><div class="card"><h3>MAMRE</h3><img src="logomamre.png" class="logo" onclick="openModal('MAMRE - Beritaken Berita Si Meriah<br><br>Markus 16:14-18')"></div></div>
     <div class="item left"><div class="card"><h3>MORIA</h3><img src="logomoria.png" class="logo" onclick="openModal('MORIA - Pusuh Peratenku Ngajari Aku<br><br>Mazmur 16:7-11')"></div></div>
@@ -159,14 +144,14 @@ header h1{ font-size:48px; font-weight: 700; letter-spacing:5px; text-transform:
 <div id="mainModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('mainModal')">&times;</span>
-        <div id="modalText" style="font-size: 1.2rem; line-height: 1.6;"></div>
+        <div id="modalText"></div>
     </div>
 </div>
 
 <div id="aboutModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('aboutModal')">&times;</span>
-        <h2 style="margin-bottom:20px;">About PJJ BTr</h2>
+        <h2 style="margin-bottom:15px;">About PJJ BTr</h2>
         <button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf', 'aboutPdfContainer')">Jadwal PJJ</button>
         <button class="modal-button" onclick="viewPDF('nominatifpjjbtr2026.pdf', 'aboutPdfContainer')">Nominatif PJJ</button>
         <div id="aboutPdfContainer"></div>
@@ -176,7 +161,7 @@ header h1{ font-size:48px; font-weight: 700; letter-spacing:5px; text-transform:
 <div id="otherModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('otherModal')">&times;</span>
-        <h2 style="margin-bottom:20px;">Information Center</h2>
+        <h2 style="margin-bottom:15px;">Informasi Jemaat</h2>
         <button class="modal-button" onclick="viewPDF('momo1maret.pdf', 'pdfContainer')">Warta Jemaat</button>
         <button class="modal-button" onclick="viewPDF('almanak2026.pdf', 'pdfContainer')">Almanak 2026</button>
         <div id="pdfContainer"></div>
@@ -184,51 +169,51 @@ header h1{ font-size:48px; font-weight: 700; letter-spacing:5px; text-transform:
 </div>
 
 <script>
-// Reveal Animation on Scroll
-const observerOptions = { threshold: 0.2 };
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.item').forEach(item => observer.observe(item));
-
 function closeWelcome() {
-    document.getElementById("welcomeOverlay").style.transform = "translateY(-100%)";
-    setTimeout(() => { document.getElementById("welcomeOverlay").style.display = "none"; }, 1000);
+    const overlay = document.getElementById("welcomeOverlay");
+    overlay.style.opacity = "0";
+    overlay.style.pointerEvents = "none";
+    setTimeout(() => { 
+        overlay.style.display = "none"; 
+    }, 800);
 }
 
 function openModal(text){
-    document.getElementById("modalText").innerHTML=text;
-    document.getElementById("mainModal").style.display="flex";
-    document.getElementById("mainModal").style.alignItems="center";
+    document.getElementById("modalText").innerHTML = text;
+    document.getElementById("mainModal").style.display = "block";
 }
 
-function openAboutModal(){ document.getElementById("aboutModal").style.display="block"; }
-function openOtherModal(){ document.getElementById("otherModal").style.display="block"; }
+function openAboutModal(){ document.getElementById("aboutModal").style.display = "block"; }
+function openOtherModal(){ document.getElementById("otherModal").style.display = "block"; }
 
 function closeModal(id){
-    document.getElementById(id).style.display="none";
-    const container = id === 'aboutModal' ? 'aboutPdfContainer' : 'pdfContainer';
-    const el = document.getElementById(container);
-    if(el) el.innerHTML = '';
+    document.getElementById(id).style.display = "none";
+    const containers = ['pdfContainer', 'aboutPdfContainer'];
+    containers.forEach(c => {
+        const el = document.getElementById(c);
+        if(el) el.innerHTML = '';
+    });
 }
 
 function viewPDF(file, containerId){
     const container = document.getElementById(containerId);
-    container.innerHTML = '<div style="padding:100px; color:#666;">Loading Premium Document...</div>';
+    container.innerHTML = '<div style="padding:50px; color:#666;">Memuat PDF...</div>';
     
     setTimeout(() => {
         const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-        const fileUrl = baseUrl + file + "?v=" + new Date().getTime();
-        container.innerHTML = `<object data="${fileUrl}" type="application/pdf" style="width:100%; height:100%;"><iframe src="${fileUrl}#toolbar=0"></iframe></object>`;
-    }, 500);
+        const fileUrl = baseUrl + file + "?v=" + new Date().getTime(); // Anti-cache
+        
+        container.innerHTML = `
+            <object data="${fileUrl}" type="application/pdf" style="width:100%; height:100%;">
+                <iframe src="${fileUrl}#toolbar=0" style="width:100%; height:100%; border:none;"></iframe>
+            </object>
+        `;
+    }, 300);
 }
 
-window.onclick = function(event){ if(event.target.classList.contains('modal')) closeModal(event.target.id); }
+window.onclick = function(event){ 
+    if(event.target.classList.contains('modal')) closeModal(event.target.id); 
+}
 </script>
 
 </body>
