@@ -1,149 +1,134 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BTR Connection</title>
+<title>PJJ BTr Connection</title>
 
 <style>
+:root {
+    --primary: #5f2c82;
+    --secondary: #49a09d;
+    --glass: rgba(255, 255, 255, 0.12);
+    --border: rgba(255, 255, 255, 0.2);
+    --shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-    font-family:'Segoe UI',sans-serif;
-    background:linear-gradient(135deg,#5f2c82,#49a09d);
+    font-family:'Poppins', 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top left, #5f2c82, #2d133a);
+    background-attachment: fixed;
     color:white;
     overflow-x:hidden;
 }
 
-/* --- ANIMASI WELCOME OVERLAY --- */
+/* --- PREMIUM WELCOME OVERLAY --- */
 .welcome-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #5f2c82, #49a09d);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #000;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 3000;
+    transition: 1s cubic-bezier(0.85, 0, 0.15, 1);
 }
 
-.welcome-content {
-    text-align: center;
-    color: white;
-    padding: 20px;
-}
-
-.animate-text {
-    font-size: 20px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s forwards 0.3s;
-}
+.welcome-content { text-align: center; }
 
 .animate-text-bold {
-    font-size: 36px;
-    font-weight: bold;
-    margin: 10px 0;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s forwards 0.6s;
-    text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #fff, #49a09d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0; transform: scale(0.9);
+    animation: premiumFadeIn 1.2s forwards 0.5s;
 }
 
-.welcome-line {
-    width: 0;
-    height: 3px;
-    background: white;
-    margin: 20px auto;
-    animation: expandLine 1s forwards 1s;
+@keyframes premiumFadeIn {
+    to { opacity: 1; transform: scale(1); }
 }
 
 .welcome-btn {
-    margin-top: 30px;
-    padding: 12px 35px;
-    background: white;
-    color: #5f2c82;
-    border: none;
-    border-radius: 30px;
-    font-weight: bold;
+    margin-top: 40px;
+    padding: 15px 45px;
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 50px;
+    font-size: 1rem;
+    letter-spacing: 2px;
     cursor: pointer;
+    transition: 0.5s;
     opacity: 0;
-    animation: fadeIn 1s forwards 1.8s;
-    transition: 0.3s;
-    font-size: 16px;
+    animation: fadeIn 1s forwards 1.5s;
 }
 
-.welcome-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255,255,255,0.4);
-}
-
-.hide-welcome { transform: translateY(-100%); }
-
-@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeIn { to { opacity: 1; } }
-@keyframes expandLine { to { width: 100px; } }
+.welcome-btn:hover { background: white; color: black; }
 
 /* --- MAIN UI --- */
-header{ text-align:center; padding:40px 20px; }
-header h1{ font-size:38px; letter-spacing:2px; }
+header{ text-align:center; padding:80px 20px; }
+header h1{ font-size:48px; font-weight: 700; letter-spacing:5px; text-transform: uppercase; }
 
-.timeline{ position:relative; max-width:700px; margin:40px auto; }
+.timeline{ position:relative; max-width:850px; margin:40px auto; padding-bottom: 50px; }
 .timeline::after{
-    content:''; position:absolute; width:4px; background:rgba(255,255,255,0.4);
-    top:0; bottom:0; left:50%; margin-left:-2px;
+    content:''; position:absolute; width:2px; background: linear-gradient(to bottom, transparent, var(--border), transparent);
+    top:0; bottom:0; left:50%; margin-left:-1px;
 }
 
-.item{ padding:20px 40px; position:relative; width:50%; }
-.left{left:0;} .right{left:50%;}
+.item{ padding:30px 40px; position:relative; width:50%; opacity: 0; transform: translateY(30px); transition: 1s; }
+.item.visible { opacity: 1; transform: translateY(0); }
 
 .card{
-    background:rgba(255,255,255,0.15); padding:20px; border-radius:20px;
-    backdrop-filter:blur(10px); text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    background: var(--glass);
+    padding:30px; border-radius:30px;
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    text-align:center;
+    box-shadow: var(--shadow);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+.card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.18); }
 
 .logo{
-    width:110px; height:110px; border-radius:50%; border:4px solid white;
-    cursor:pointer; transition:0.4s;
+    width:120px; height:120px; border-radius:50%; border:3px solid white;
+    margin-bottom: 15px; cursor:pointer; object-fit: cover;
 }
-.logo:hover{ transform:scale(1.15); box-shadow:0 0 25px white; }
 
-/* Modal */
+/* --- LUXURY MODAL --- */
 .modal{
-    display:none; position:fixed; z-index:1000; left:0; top:0;
-    width:100%; height:100%; background:rgba(0,0,0,0.6);
-    backdrop-filter:blur(6px); overflow-y: auto;
+    display:none; position:fixed; z-index:2000; left:0; top:0;
+    width:100%; height:100%; background:rgba(0,0,0,0.85);
+    backdrop-filter:blur(15px);
 }
 
 .modal-content{
-    background:white; color:#333; margin: 40px auto; padding:20px;
-    width:92%; max-width:600px; border-radius:20px; text-align:center;
-    animation:zoomIn 0.3s ease; position: relative;
+    background: #fff; color:#111; margin: 5vh auto; padding:40px 20px;
+    width:92%; max-width:750px; border-radius:40px; text-align:center;
+    position: relative; overflow: hidden;
 }
 
-.close{ position: absolute; right: 20px; top: 15px; font-size:28px; cursor:pointer; color: #666; }
+.close{ position: absolute; right: 25px; top: 20px; font-size:32px; cursor:pointer; color: #999; }
 
 .modal-button{
-    display:inline-block; margin:5px; padding:10px 15px; background:#5f2c82;
-    color:white; border:none; border-radius:12px; cursor:pointer; font-size:13px; transition:0.3s;
+    display:inline-block; margin:8px; padding:12px 25px; 
+    background:#111; color:white; border:none; border-radius:50px;
+    cursor:pointer; font-size:14px; font-weight: 600; transition:0.3s;
 }
-.modal-button:hover{ background:#49a09d; }
+.modal-button:hover{ background: var(--primary); transform: translateY(-3px); }
 
 #pdfContainer, #aboutPdfContainer {
-    margin-top: 15px; width: 100%; height: 60vh; border: 1px solid #ccc;
-    border-radius: 10px; background: #fff; overflow: auto; -webkit-overflow-scrolling: touch;
+    margin-top: 25px; width: 100%; height: 60vh; border-radius: 20px;
+    background: #f4f4f4; overflow: hidden; box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
 }
-object, iframe { width: 100%; height: 100%; border: none; }
-
-@keyframes zoomIn{ from{transform:scale(0.8);opacity:0;} to{transform:scale(1);opacity:1;} }
 
 @media screen and (max-width:600px){
-    .item{ width:100%; left:0 !important; padding-left:70px; }
-    .timeline::after{ left:30px; }
-    header h1 { font-size: 28px; }
-    .animate-text-bold { font-size: 28px; }
+    .item{ width:100%; left:0 !important; padding-left:50px; }
+    .timeline::after{ left:20px; }
+    header h1 { font-size: 32px; }
+    .animate-text-bold { font-size: 2rem; }
 }
 </style>
 </head>
@@ -152,146 +137,98 @@ object, iframe { width: 100%; height: 100%; border: none; }
 
 <div id="welcomeOverlay" class="welcome-overlay">
     <div class="welcome-content">
-        <p class="animate-text">Selamat Datang di</p>
-        <h1 class="animate-text-bold">PJJ BTr Connection</h1>
-        <div class="welcome-line"></div>
-        <p class="animate-text" style="font-style: italic; font-size: 16px;">Building Together in Christ</p>
-        <button class="welcome-btn" onclick="closeWelcome()">Mulai Jelajahi</button>
+        <h1 class="animate-text-bold">BTr CONNECTION</h1>
+        <button class="welcome-btn" onclick="closeWelcome()">ENTER EXPERIENCE</button>
     </div>
 </div>
 
 <header>
-    <h1>BTR Connection</h1>
-    <p>Building Together in Christ</p>
+    <h1>BTr Connection</h1>
+    <p style="opacity: 0.7; letter-spacing: 3px;">BUILDING TOGETHER IN CHRIST</p>
 </header>
 
-<div class="timeline">
-    <div class="item left">
-        <div class="card">
-            <h3>ABOUT PJJ BTr</h3>
-            <img src="logogbkp.png" class="logo" onclick="openAboutModal()">
-        </div>
-    </div>
-
-    <div class="item right">
-        <div class="card">
-            <h3>MAMRE</h3>
-            <img src="logomamre.png" class="logo" onclick="openModal('MAMRE - Beritaken Berita Si Meriah<br><br>Markus 16:14-18')">
-        </div>
-    </div>
-
-    <div class="item left">
-        <div class="card">
-            <h3>MORIA</h3>
-            <img src="logomoria.png" class="logo" onclick="openModal('MORIA - Pusuh Peratenku Ngajari Aku<br><br>Mazmur 16:7-11')">
-        </div>
-    </div>
-
-    <div class="item right">
-        <div class="card">
-            <h3>PERMATA</h3>
-            <img src="logopermata.png" class="logo" onclick="openModal('PERMATA - Aku Kap Tuhan<br><br>Keluaran 34:5-9')">
-        </div>
-    </div>
-
-    <div class="item left">
-        <div class="card">
-            <h3>KAKR</h3>
-            <img src="logokakr.png" class="logo" onclick="openModal('KAKR - Yesus Dijual<br><br>Lukas 22:2-6<br>Mazmur 41:5-10')">
-        </div>
-    </div>
-
-    <div class="item right">
-        <div class="card">
-            <h3>LAINNYA</h3>
-            <img src="logogbkp.png" class="logo" onclick="openOtherModal()">
-        </div>
-    </div>
+<div class="timeline" id="timeline">
+    <div class="item left"><div class="card"><h3>ABOUT PJJ BTr</h3><img src="logogbkp.png" class="logo" onclick="openAboutModal()"></div></div>
+    <div class="item right"><div class="card"><h3>MAMRE</h3><img src="logomamre.png" class="logo" onclick="openModal('MAMRE - Beritaken Berita Si Meriah<br><br>Markus 16:14-18')"></div></div>
+    <div class="item left"><div class="card"><h3>MORIA</h3><img src="logomoria.png" class="logo" onclick="openModal('MORIA - Pusuh Peratenku Ngajari Aku<br><br>Mazmur 16:7-11')"></div></div>
+    <div class="item right"><div class="card"><h3>PERMATA</h3><img src="logopermata.png" class="logo" onclick="openModal('PERMATA - Aku Kap Tuhan<br><br>Keluaran 34:5-9')"></div></div>
+    <div class="item left"><div class="card"><h3>KAKR</h3><img src="logokakr.png" class="logo" onclick="openModal('KAKR - Yesus Dijual<br><br>Lukas 22:2-6<br>Mazmur 41:5-10')"></div></div>
+    <div class="item right"><div class="card"><h3>LAINNYA</h3><img src="logogbkp.png" class="logo" onclick="openOtherModal()"></div></div>
 </div>
 
 <div id="mainModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('mainModal')">&times;</span>
-        <div id="modalText"></div>
+        <div id="modalText" style="font-size: 1.2rem; line-height: 1.6;"></div>
     </div>
 </div>
 
 <div id="aboutModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('aboutModal')">&times;</span>
-        <h3 style="margin-bottom:15px;">About PJJ BTr</h3>
-        <button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf', 'aboutPdfContainer')">📄 Jadwal PJJ</button>
-        <button class="modal-button" onclick="viewPDF('nominatifpjjbtr2026.pdf', 'aboutPdfContainer')">📄 Nominatif PJJ</button>
-        <div id="aboutPdfContainer">
-            <p style="padding: 50px 10px; color: #999;">Pilih dokumen untuk pratinjau</p>
-        </div>
+        <h2 style="margin-bottom:20px;">About PJJ BTr</h2>
+        <button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf', 'aboutPdfContainer')">Jadwal PJJ</button>
+        <button class="modal-button" onclick="viewPDF('nominatifpjjbtr2026.pdf', 'aboutPdfContainer')">Nominatif PJJ</button>
+        <div id="aboutPdfContainer"></div>
     </div>
 </div>
 
 <div id="otherModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('otherModal')">&times;</span>
-        <h3 style="margin-bottom:15px;">Informasi Jemaat</h3>
-        <button class="modal-button" onclick="viewPDF('momo1maret.pdf', 'pdfContainer')">📄 Warta Jemaat</button>
-        <button class="modal-button" onclick="viewPDF('almanak2026.pdf', 'pdfContainer')">📄 Almanak</button>
-        <div id="pdfContainer">
-            <p style="padding: 50px 10px; color: #999;">Pilih dokumen untuk pratinjau</p>
-        </div>
+        <h2 style="margin-bottom:20px;">Information Center</h2>
+        <button class="modal-button" onclick="viewPDF('momo1maret.pdf', 'pdfContainer')">Warta Jemaat</button>
+        <button class="modal-button" onclick="viewPDF('almanak2026.pdf', 'pdfContainer')">Almanak 2026</button>
+        <div id="pdfContainer"></div>
     </div>
 </div>
 
 <script>
+// Reveal Animation on Scroll
+const observerOptions = { threshold: 0.2 };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.item').forEach(item => observer.observe(item));
+
 function closeWelcome() {
-    document.getElementById("welcomeOverlay").classList.add("hide-welcome");
-    setTimeout(() => { document.getElementById("welcomeOverlay").style.display = "none"; }, 800);
+    document.getElementById("welcomeOverlay").style.transform = "translateY(-100%)";
+    setTimeout(() => { document.getElementById("welcomeOverlay").style.display = "none"; }, 1000);
 }
 
 function openModal(text){
     document.getElementById("modalText").innerHTML=text;
-    document.getElementById("mainModal").style.display="block";
+    document.getElementById("mainModal").style.display="flex";
+    document.getElementById("mainModal").style.alignItems="center";
 }
 
-function openAboutModal(){
-    document.getElementById("aboutModal").style.display="block";
-}
-
-function openOtherModal(){
-    document.getElementById("otherModal").style.display="block";
-}
+function openAboutModal(){ document.getElementById("aboutModal").style.display="block"; }
+function openOtherModal(){ document.getElementById("otherModal").style.display="block"; }
 
 function closeModal(id){
     document.getElementById(id).style.display="none";
-    // Reset pratinjau saat modal ditutup
-    const containers = ['pdfContainer', 'aboutPdfContainer'];
-    containers.forEach(c => {
-        const el = document.getElementById(c);
-        if(el) el.innerHTML = '<p style="padding: 50px 10px; color: #999;">Pilih dokumen untuk pratinjau</p>';
-    });
+    const container = id === 'aboutModal' ? 'aboutPdfContainer' : 'pdfContainer';
+    const el = document.getElementById(container);
+    if(el) el.innerHTML = '';
 }
 
 function viewPDF(file, containerId){
     const container = document.getElementById(containerId);
-    container.innerHTML = '<p style="padding: 50px 10px; color: #999;">Memuat dokumen...</p>';
+    container.innerHTML = '<div style="padding:100px; color:#666;">Loading Premium Document...</div>';
     
     setTimeout(() => {
         const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-        const fileUrl = baseUrl + file + "?v=" + new Date().getTime(); // Anti-cache
-        
-        container.innerHTML = `
-            <object data="${fileUrl}" type="application/pdf">
-                <iframe src="${fileUrl}#toolbar=0&navpanes=0&scrollbar=1">
-                    <p>Browser tidak mendukung pratinjau. <a href="${fileUrl}">Klik untuk unduh.</a></p>
-                </iframe>
-            </object>
-        `;
-    }, 300);
+        const fileUrl = baseUrl + file + "?v=" + new Date().getTime();
+        container.innerHTML = `<object data="${fileUrl}" type="application/pdf" style="width:100%; height:100%;"><iframe src="${fileUrl}#toolbar=0"></iframe></object>`;
+    }, 500);
 }
 
-window.onclick = function(event){
-    if(event.target.classList.contains('modal')){
-        closeModal(event.target.id);
-    }
-}
+window.onclick = function(event){ if(event.target.classList.contains('modal')) closeModal(event.target.id); }
 </script>
 
 </body>
