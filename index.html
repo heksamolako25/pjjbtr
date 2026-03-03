@@ -9,9 +9,10 @@
 :root {
     --primary: #5f2c82;
     --secondary: #49a09d;
+    --gold: #D4AF37;
     --glass: rgba(255, 255, 255, 0.12);
     --border: rgba(255, 255, 255, 0.2);
-    --shadow: 0 15px 35px rgba(0,0,0,0.2);
+    --shadow: 0 15px 35px rgba(0,0,0,0.3);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -24,207 +25,125 @@ body{
     overflow-x:hidden;
 }
 
-/* --- FIX WELCOME OVERLAY & ANIMASI PREMIUM --- */
+/* --- WELCOME OVERLAY --- */
 #welcomeOverlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at center, #1a0b25, #000); /* Gradasi radial agar lebih gelap & elegan */
+    background: radial-gradient(circle at center, #1a0b25, #000);
     display: flex; justify-content: center; align-items: center;
     z-index: 9999;
     transition: 1s cubic-bezier(0.85, 0, 0.15, 1);
 }
 
-.welcome-content { text-align: center; z-index: 10000; }
+.welcome-content { text-align: center; }
 
 .animate-text-bold {
-    font-size: 3rem; /* Sedikit lebih besar */
+    font-size: 3rem;
     font-weight: 800;
-    color: white;
-    margin-bottom: 20px;
-    letter-spacing: 5px; /* Jarak huruf lebih lebar agar eksklusif */
+    letter-spacing: 5px;
     text-transform: uppercase;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUpStaggered 1s forwards 0.3s; /* Animasi dengan delay */
-    text-shadow: 0 5px 15px rgba(255, 255, 255, 0.3); /* Efek bersinar halus */
-}
-
-.animate-subtext {
-    font-size: 1.2rem;
-    color: white;
-    opacity: 0.7;
-    margin-bottom: 40px;
-    letter-spacing: 2px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUpStaggered 1s forwards 0.6s; /* Animasi dengan delay lebih lama */
+    animation: fadeInUp 1s forwards 0.3s;
 }
 
 .welcome-btn {
-    padding: 15px 40px;
-    background: transparent; /* Tombol transparan (outline) */
+    margin-top: 30px;
+    padding: 15px 45px;
+    background: transparent;
     color: white;
     border: 2px solid white;
     border-radius: 50px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    letter-spacing: 2px;
     opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUpStaggered 1s forwards 1.2s; /* Animasi dengan delay paling lama */
+    animation: fadeInUp 1s forwards 0.8s;
     transition: 0.4s;
 }
 
-.welcome-btn:hover {
-    background: white;
-    color: black;
-    transform: scale(1.1) translateY(0) !important; /* Mencegah bentrok animasi */
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Efek bersinar saat hover */
-}
+.welcome-btn:hover { background: white; color: black; box-shadow: 0 0 20px rgba(255,255,255,0.5); }
 
-/* Keyframes Animasi Staggered */
-@keyframes fadeInUpStaggered {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-/* --- ANIMASI INTERAKTIF PADA BUTTON & CARD --- */
+/* --- MAIN UI ANIMATION FIX --- */
+header { text-align:center; padding:60px 20px; opacity: 0; transition: 1s; }
+.timeline { position:relative; max-width:800px; margin:20px auto; padding-bottom: 50px; opacity: 0; transition: 1s; }
 
-/* Efek kartu saat muncul di layar (sudah ada sebelumnya, kita perhalus) */
-.item { 
-    padding: 20px 40px; 
-    position: relative; 
-    width: 50%; 
-    opacity: 0; 
-    transform: translateY(30px); 
-    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
-}
+/* Class untuk memunculkan konten */
+.show-content { opacity: 1 !important; }
 
-/* Efek saat Logo disentuh (Hover) */
-.logo {
-    width: 100px; 
-    height: 100px; 
-    border-radius: 50%; 
-    border: 2px solid white;
-    margin-bottom: 10px; 
-    cursor: pointer;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 0 rgba(255,255,255,0);
-}
-
-.logo:hover {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 0 20px rgba(255,255,255,0.6);
-    border-color: var(--secondary);
-}
-
-/* Efek "Klik" (Active State) */
-.logo:active, .modal-button:active {
-    transform: scale(0.9);
-    filter: brightness(0.8);
-}
-
-/* Animasi Modal Jatuh (Bounce) */
-@keyframes modalFall {
-    0% { transform: translateY(-100px) scale(0.8); opacity: 0; }
-    60% { transform: translateY(10px) scale(1.02); opacity: 1; }
-    100% { transform: translateY(0) scale(1); opacity: 1; }
-}
-
-.modal-content {
-    background: #fff; 
-    color:#111; 
-    margin: 5vh auto; 
-    padding: 30px 15px;
-    width: 90%; 
-    max-width: 600px; 
-    border-radius: 30px; 
-    text-align: center;
-    position: relative;
-    /* Tambahkan animasi ini */
-    animation: modalFall 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-/* Tambahkan efek kilau (Shimmer) pada tombol modal */
-.modal-button {
-    position: relative;
-    overflow: hidden;
-    /* ... kode sebelumnya ... */
-}
-
-.modal-button::after {
-    content: '';
-    position: absolute;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-    transform: rotate(45deg);
-    transition: 0.5s;
-}
-
-.modal-button:hover::after {
-    left: 100%;
-}
-
-/* --- MAIN UI --- */
-header{ text-align:center; padding:60px 20px; }
-header h1{ font-size:32px; letter-spacing:3px; text-transform: uppercase; }
-
-.timeline{ position:relative; max-width:800px; margin:20px auto; padding-bottom: 50px; }
 .timeline::after{
     content:''; position:absolute; width:2px; background: rgba(255,255,255,0.2);
     top:0; bottom:0; left:50%; margin-left:-1px;
 }
 
-.item{ padding:20px 40px; position:relative; width:50%; }
+.item{ padding:20px 40px; position:relative; width:50%; transition: 0.5s; }
 .left{left:0;} .right{left:50%;}
 
 .card{
     background: var(--glass);
-    padding:20px; border-radius:25px;
+    padding:25px; border-radius:30px;
     backdrop-filter: blur(15px);
     border: 1px solid var(--border);
     text-align:center;
     box-shadow: var(--shadow);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+.card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.18); }
 
 .logo{
     width:100px; height:100px; border-radius:50%; border:2px solid white;
-    margin-bottom: 10px; cursor:pointer;
+    margin-bottom: 15px; cursor:pointer; transition: 0.3s;
 }
+
+.logo:active { transform: scale(0.9); }
+
+/* --- LOGO ABOUT PJJ BTR (SVG) --- */
+.premium-logo-svg {
+    width: 100px; height: 100px; margin-bottom: 15px; cursor: pointer;
+    filter: drop-shadow(0 0 5px rgba(214, 175, 55, 0.3));
+    transition: 0.4s;
+}
+.premium-logo-svg:hover { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 15px var(--gold)); }
 
 /* --- MODAL --- */
 .modal{
     display:none; position:fixed; z-index:2000; left:0; top:0;
-    width:100%; height:100%; background:rgba(0,0,0,0.8);
-    backdrop-filter:blur(10px);
+    width:100%; height:100%; background:rgba(0,0,0,0.85);
+    backdrop-filter:blur(15px);
+}
+
+@keyframes modalFall {
+    0% { transform: translateY(-50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
 }
 
 .modal-content{
-    background: #fff; color:#111; margin: 5vh auto; padding:30px 15px;
-    width:90%; max-width:600px; border-radius:30px; text-align:center;
-    position: relative;
+    background: #fff; color:#111; margin: 10vh auto; padding:35px 20px;
+    width:90%; max-width:600px; border-radius:35px; text-align:center;
+    position: relative; animation: modalFall 0.4s ease-out;
 }
 
-.close{ position: absolute; right: 20px; top: 15px; font-size:30px; cursor:pointer; color: #999; }
+.close{ position: absolute; right: 25px; top: 20px; font-size:32px; cursor:pointer; color: #999; }
 
 .modal-button{
-    display:inline-block; margin:5px; padding:10px 20px; 
+    display:inline-block; margin:8px; padding:12px 25px; 
     background:var(--primary); color:white; border:none; border-radius:50px;
-    cursor:pointer; font-size:13px; font-weight: 600;
+    cursor:pointer; font-size:14px; font-weight: 600; transition: 0.3s;
 }
+.modal-button:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
 #pdfContainer, #aboutPdfContainer {
-    margin-top: 20px; width: 100%; height: 60vh; border-radius: 15px;
-    background: #f0f0f0; overflow: auto; -webkit-overflow-scrolling: touch;
+    margin-top: 20px; width: 100%; height: 55vh; border-radius: 20px;
+    background: #f4f4f4; overflow: auto;
 }
 
 @media screen and (max-width:600px){
     .item{ width:100%; left:0 !important; padding-left:50px; }
     .timeline::after{ left:20px; }
+    .animate-text-bold { font-size: 2rem; }
 }
 </style>
 </head>
@@ -238,13 +157,26 @@ header h1{ font-size:32px; letter-spacing:3px; text-transform: uppercase; }
     </div>
 </div>
 
-<header>
+<header id="mainHeader">
     <h1>BTr Connection</h1>
-    <p style="opacity: 0.8;">BUILDING TOGETHER IN CHRIST</p>
+    <p style="opacity: 0.7; letter-spacing: 2px;">BUILDING TOGETHER IN CHRIST</p>
 </header>
 
-<div class="timeline">
-    <div class="item left"><div class="card"><h3>ABOUT PJJ BTr</h3><img src="pjjbtrlogo.jpeg" class="logo" onclick="openAboutModal()"></div></div>
+<div class="timeline" id="mainTimeline">
+    <div class="item left">
+        <div class="card">
+            <h3>ABOUT PJJ BTr</h3>
+            <svg class="premium-logo-svg" viewBox="0 0 100 100" onclick="openAboutModal()">
+                <circle cx="50" cy="50" r="48" fill="none" stroke="#D4AF37" stroke-width="2"/>
+                <path d="M25 75 Q 35 65, 50 65 Q 65 65, 75 75 L 75 78 Q 65 68, 50 68 Q 35 68, 25 78 Z" fill="#D4AF37"/>
+                <rect x="48" y="22" width="4" height="45" rx="1" fill="#D4AF37"/>
+                <rect x="32" y="35" width="36" height="4" rx="1" fill="#D4AF37"/>
+                <path d="M48 55 Q 42 50, 38 42 Q 34 35, 36 30 L 41 33 Q 39 38, 43 45 Z" fill="#D4AF37"/>
+                <path d="M52 55 Q 58 50, 62 42 Q 66 35, 64 30 L 59 33 Q 61 38, 57 45 Z" fill="#D4AF37"/>
+            </svg>
+        </div>
+    </div>
+
     <div class="item right"><div class="card"><h3>MAMRE</h3><img src="logomamre.png" class="logo" onclick="openModal('MAMRE - Beritaken Berita Si Meriah<br><br>Markus 16:14-18')"></div></div>
     <div class="item left"><div class="card"><h3>MORIA</h3><img src="logomoria.png" class="logo" onclick="openModal('MORIA - Pusuh Peratenku Ngajari Aku<br><br>Mazmur 16:7-11')"></div></div>
     <div class="item right"><div class="card"><h3>PERMATA</h3><img src="logopermata.png" class="logo" onclick="openModal('PERMATA - Aku Kap Tuhan<br><br>Keluaran 34:5-9')"></div></div>
@@ -255,16 +187,16 @@ header h1{ font-size:32px; letter-spacing:3px; text-transform: uppercase; }
 <div id="mainModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('mainModal')">&times;</span>
-        <div id="modalText"></div>
+        <div id="modalText" style="font-size: 1.1rem; line-height: 1.6;"></div>
     </div>
 </div>
 
 <div id="aboutModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('aboutModal')">&times;</span>
-        <h2 style="margin-bottom:15px;">About PJJ BTr</h2>
-        <button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf', 'aboutPdfContainer')">Jadwal PJJ</button>
-        <button class="modal-button" onclick="viewPDF('nominatifpjjbtr2026.pdf', 'aboutPdfContainer')">Nominatif PJJ</button>
+        <h2 style="margin-bottom:20px;">About PJJ BTr</h2>
+        <button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf', 'aboutPdfContainer')">📄 Jadwal PJJ</button>
+        <button class="modal-button" onclick="viewPDF('nominatifpjjbtr2026.pdf', 'aboutPdfContainer')">📄 Nominatif PJJ</button>
         <div id="aboutPdfContainer"></div>
     </div>
 </div>
@@ -272,9 +204,9 @@ header h1{ font-size:32px; letter-spacing:3px; text-transform: uppercase; }
 <div id="otherModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('otherModal')">&times;</span>
-        <h2 style="margin-bottom:15px;">Informasi Jemaat</h2>
-        <button class="modal-button" onclick="viewPDF('momo1maret.pdf', 'pdfContainer')">Warta Jemaat</button>
-        <button class="modal-button" onclick="viewPDF('almanak2026.pdf', 'pdfContainer')">Almanak 2026</button>
+        <h2 style="margin-bottom:20px;">Informasi Jemaat</h2>
+        <button class="modal-button" onclick="viewPDF('momo1maret.pdf', 'pdfContainer')">📄 Warta Jemaat</button>
+        <button class="modal-button" onclick="viewPDF('almanak2026.pdf', 'pdfContainer')">📄 Almanak 2026</button>
         <div id="pdfContainer"></div>
     </div>
 </div>
@@ -284,63 +216,42 @@ function closeWelcome() {
     const overlay = document.getElementById("welcomeOverlay");
     overlay.style.opacity = "0";
     overlay.style.pointerEvents = "none";
-    setTimeout(() => { 
-        overlay.style.display = "none"; 
-    }, 800);
+    
+    // Munculkan konten utama
+    document.getElementById("mainHeader").classList.add("show-content");
+    document.getElementById("mainTimeline").classList.add("show-content");
+    
+    setTimeout(() => { overlay.style.display = "none"; }, 1000);
 }
 
 function openModal(text){
-    setTimeout(() => {
-        document.getElementById("modalText").innerHTML = text;
-        document.getElementById("mainModal").style.display = "block";
-    }, 100);
+    document.getElementById("modalText").innerHTML = text;
+    document.getElementById("mainModal").style.display = "block";
 }
     
-function openAboutModal(){ 
-    // Berikan efek klik visual sebentar sebelum muncul
-    setTimeout(() => {
-        document.getElementById("aboutModal").style.display = "block"; 
-    }, 100);
-}
-    
-function openOtherModal(){ 
-    setTimeout(() => {
-        document.getElementById("otherModal").style.display = "block"; 
-    }, 100);
-}
+function openAboutModal(){ document.getElementById("aboutModal").style.display = "block"; }
+function openOtherModal(){ document.getElementById("otherModal").style.display = "block"; }
     
 function closeModal(id){
     document.getElementById(id).style.display = "none";
-    const containers = ['pdfContainer', 'aboutPdfContainer'];
-    containers.forEach(c => {
-        const el = document.getElementById(c);
-        if(el) el.innerHTML = '';
-    });
+    const container = id === 'aboutModal' ? 'aboutPdfContainer' : 'pdfContainer';
+    const el = document.getElementById(container);
+    if(el) el.innerHTML = '';
 }
 
 function viewPDF(file, containerId){
     const container = document.getElementById(containerId);
-    container.innerHTML = '<div style="padding:50px; color:#666;">Memuat PDF...</div>';
+    container.innerHTML = '<div style="padding:50px; color:#666;">Memuat dokumen premium...</div>';
     
     setTimeout(() => {
         const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-        const fileUrl = baseUrl + file + "?v=" + new Date().getTime(); // Anti-cache
-        
-        container.innerHTML = `
-            <object data="${fileUrl}" type="application/pdf" style="width:100%; height:100%;">
-                <iframe src="${fileUrl}#toolbar=0" style="width:100%; height:100%; border:none;"></iframe>
-            </object>
-        `;
-    }, 300);
+        const fileUrl = baseUrl + file + "?v=" + new Date().getTime();
+        container.innerHTML = `<object data="${fileUrl}" type="application/pdf" style="width:100%; height:100%;"><iframe src="${fileUrl}#toolbar=0" style="width:100%; height:100%; border:none;"></iframe></object>`;
+    }, 400);
 }
 
-window.onclick = function(event){ 
-    if(event.target.classList.contains('modal')) closeModal(event.target.id); 
-}
+window.onclick = function(event){ if(event.target.classList.contains('modal')) closeModal(event.target.id); }
 </script>
 
 </body>
 </html>
-
-
-
