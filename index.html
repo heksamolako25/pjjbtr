@@ -24,39 +24,72 @@ body{
     overflow-x:hidden;
 }
 
-/* --- FIX WELCOME OVERLAY --- */
+/* --- FIX WELCOME OVERLAY & ANIMASI PREMIUM --- */
 #welcomeOverlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: #000;
+    background: radial-gradient(circle at center, #1a0b25, #000); /* Gradasi radial agar lebih gelap & elegan */
     display: flex; justify-content: center; align-items: center;
-    z-index: 9999; /* Pastikan paling atas */
-    transition: 0.8s cubic-bezier(0.85, 0, 0.15, 1);
+    z-index: 9999;
+    transition: 1s cubic-bezier(0.85, 0, 0.15, 1);
 }
 
 .welcome-content { text-align: center; z-index: 10000; }
 
 .animate-text-bold {
-    font-size: 2.5rem;
+    font-size: 3rem; /* Sedikit lebih besar */
     font-weight: 800;
     color: white;
     margin-bottom: 20px;
-    letter-spacing: 3px;
+    letter-spacing: 5px; /* Jarak huruf lebih lebar agar eksklusif */
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUpStaggered 1s forwards 0.3s; /* Animasi dengan delay */
+    text-shadow: 0 5px 15px rgba(255, 255, 255, 0.3); /* Efek bersinar halus */
+}
+
+.animate-subtext {
+    font-size: 1.2rem;
+    color: white;
+    opacity: 0.7;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUpStaggered 1s forwards 0.6s; /* Animasi dengan delay lebih lama */
 }
 
 .welcome-btn {
     padding: 15px 40px;
-    background: white;
-    color: black;
-    border: none;
+    background: transparent; /* Tombol transparan (outline) */
+    color: white;
+    border: 2px solid white;
     border-radius: 50px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.3s;
+    letter-spacing: 2px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUpStaggered 1s forwards 1.2s; /* Animasi dengan delay paling lama */
+    transition: 0.4s;
 }
 
-.welcome-btn:hover { transform: scale(1.1); background: #eee; }
+.welcome-btn:hover {
+    background: white;
+    color: black;
+    transform: scale(1.1) translateY(0) !important; /* Mencegah bentrok animasi */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Efek bersinar saat hover */
+}
+
+/* Keyframes Animasi Staggered */
+@keyframes fadeInUpStaggered {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* --- MAIN UI --- */
 header{ text-align:center; padding:60px 20px; }
@@ -218,3 +251,4 @@ window.onclick = function(event){
 
 </body>
 </html>
+
