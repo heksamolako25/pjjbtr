@@ -127,17 +127,9 @@ header { text-align:center; padding:60px 20px; opacity: 0; transition: 1s; }
 }
 .modal-button:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-#pdfContainer, #aboutPdfContainer, #reflectionContainer {
-    margin-top: 20px; width: 100%; border-radius: 20px;
-    background: #f4f4f4; overflow: auto;
-}
-
-#reflectionContainer {
-    text-align: left;
-    padding: 20px;
-    display: none;
-    max-height: 40vh;
-    border: 1px solid #ddd;
+#pdfContainer, #aboutPdfContainer, #mainPdfContainer {
+    margin-top: 20px; width: 100%; height: 55vh; border-radius: 20px;
+    background: #f4f4f4; overflow: auto; display: none;
 }
 
 @media screen and (max-width:600px){
@@ -173,14 +165,14 @@ header { text-align:center; padding:60px 20px; opacity: 0; transition: 1s; }
     <div class="item right">
         <div class="card">
             <h3>MAMRE</h3>
-            <img src="logomamre.png" class="logo" onclick="openDynamicModal('MAMRE', 'MAMRE - Beritaken Berita Si Meriah<br><br>Markus 16:14-18')">
+            <img src="logomamre.png" class="logo" onclick="openDynamicModal('MAMRE', 'renungan_mamre.pdf')">
         </div>
     </div>
 
     <div class="item left">
         <div class="card">
             <h3>MORIA</h3>
-            <img src="logomoria.png" class="logo" onclick="openDynamicModal('MORIA', 'MORIA - Pusuh Peratenku Ngajari Aku<br><br>Mazmur 16:7-11')">
+            <img src="logomoria.png" class="logo" onclick="openDynamicModal('MORIA', 'renungan_moria.pdf')">
         </div>
     </div>
 
@@ -194,7 +186,7 @@ header { text-align:center; padding:60px 20px; opacity: 0; transition: 1s; }
         <span class="close" onclick="closeModal('mainModal')">&times;</span>
         <div id="modalText" style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 15px;"></div>
         <div id="extraButtons"></div>
-        <div id="reflectionContainer"></div>
+        <div id="mainPdfContainer"></div>
     </div>
 </div>
 
@@ -204,10 +196,8 @@ header { text-align:center; padding:60px 20px; opacity: 0; transition: 1s; }
         <h2 style="margin-bottom:20px;">About PJJ BTr</h2>
         <button class="modal-button" onclick="viewPDF('jadwalpjjbtr.pdf', 'aboutPdfContainer')">📑 Jadwal PJJ</button>
         <button class="modal-button" onclick="viewPDF('nominatifpjjbtr2026.pdf', 'aboutPdfContainer')">📑 Nominatif PJJ</button>
-        <button class="modal-button" onclick="showReflection('PJJ BTr')">✨ Bahan Renungan Mingguan</button>
-        
+        <button class="modal-button" onclick="viewPDF('bahanpjjminggu1maret.pdf', 'aboutPdfContainer')">✨ Bahan Renungan Mingguan</button>
         <div id="aboutPdfContainer"></div>
-        <div id="aboutReflection" style="text-align:left; padding:20px; display:none; background:#f4f4f4; margin-top:10px; border-radius:15px; max-height:30vh; overflow:auto;"></div>
     </div>
 </div>
 
@@ -222,16 +212,6 @@ header { text-align:center; padding:60px 20px; opacity: 0; transition: 1s; }
 </div>
 
 <script>
-/* EDIT ISI RENUNGAN DI SINI */
-function getWeeklyReflection(category) {
-    const reflections = {
-        'MAMRE': `<strong>Renungan Mamre:</strong><br>Isi renungan Mamre minggu ini...`,
-        'MORIA': `<strong>Renungan Moria:</strong><br>Isi renungan Moria minggu ini...`,
-        'PJJ BTr': `<strong>Renungan PJJ BTr:</strong><br>Isi renungan PJJ minggu ini...`
-    };
-    return reflections[category] || "Bahan belum tersedia.";
-}
-
 function closeWelcome() {
     const overlay = document.getElementById("welcomeOverlay");
     overlay.style.opacity = "0";
@@ -241,37 +221,25 @@ function closeWelcome() {
     setTimeout(() => { overlay.style.display = "none"; }, 1000);
 }
 
-function openDynamicModal(category, baseText) {
-    document.getElementById("modalText").innerHTML = baseText;
+// Fungsi Modal Dinamis untuk Mamre & Moria agar muncul tombol Renungan
+function openDynamicModal(title, pdfFileName) {
+    document.getElementById("modalText").innerHTML = `<h3>${title}</h3><br>Silahkan pilih menu di bawah:`;
     document.getElementById("extraButtons").innerHTML = `
-        <button class="modal-button" onclick="showReflection('${category}')">✨ Bahan Renungan Mingguan</button>
+        <button class="modal-button" onclick="viewPDF('${pdfFileName}', 'mainPdfContainer')">✨ Bahan Renungan Mingguan</button>
     `;
-    document.getElementById("reflectionContainer").style.display = "none";
+    document.getElementById("mainPdfContainer").style.display = "none";
     document.getElementById("mainModal").style.display = "block";
-}
-
-function showReflection(category) {
-    let container;
-    if(category === 'PJJ BTr') {
-        container = document.getElementById("aboutReflection");
-        document.getElementById("aboutPdfContainer").innerHTML = ''; 
-    } else {
-        container = document.getElementById("reflectionContainer");
-    }
-    container.innerHTML = getWeeklyReflection(category);
-    container.style.display = "block";
 }
 
 function openModal(text){
     document.getElementById("modalText").innerHTML = text;
     document.getElementById("extraButtons").innerHTML = "";
-    document.getElementById("reflectionContainer").style.display = "none";
+    document.getElementById("mainPdfContainer").style.display = "none";
     document.getElementById("mainModal").style.display = "block";
 }
     
 function openAboutModal(){ 
-    document.getElementById("aboutReflection").style.display = "none";
-    document.getElementById("aboutPdfContainer").innerHTML = '';
+    document.getElementById("aboutPdfContainer").style.display = "none";
     document.getElementById("aboutModal").style.display = "block"; 
 }
 
@@ -279,24 +247,22 @@ function openOtherModal(){ document.getElementById("otherModal").style.display =
     
 function closeModal(id){
     document.getElementById(id).style.display = "none";
-    if(id === 'mainModal') document.getElementById("reflectionContainer").style.display = "none";
-    if(id === 'aboutModal') {
-        document.getElementById("aboutReflection").style.display = "none";
-        document.getElementById("aboutPdfContainer").innerHTML = '';
-    }
-    const pdf = document.getElementById('pdfContainer');
-    if(pdf) pdf.innerHTML = '';
+    const containers = ['aboutPdfContainer', 'pdfContainer', 'mainPdfContainer'];
+    containers.forEach(c => {
+        const el = document.getElementById(c);
+        if(el) { el.innerHTML = ''; el.style.display = 'none'; }
+    });
 }
 
 function viewPDF(file, containerId){
     const container = document.getElementById(containerId);
-    if(containerId === 'aboutPdfContainer') document.getElementById("aboutReflection").style.display = "none";
-    
+    container.style.display = "block";
     container.innerHTML = '<div style="padding:30px; color:#666;">Memuat dokumen...</div>';
+    
     setTimeout(() => {
         const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
         const fileUrl = baseUrl + file + "?v=" + new Date().getTime();
-        container.innerHTML = `<object data="${fileUrl}" type="application/pdf" style="width:100%; height:55vh;"><iframe src="${fileUrl}#toolbar=0" style="width:100%; height:55vh; border:none;"></iframe></object>`;
+        container.innerHTML = `<object data="${fileUrl}" type="application/pdf" style="width:100%; height:100%;"><iframe src="${fileUrl}#toolbar=0" style="width:100%; height:100%; border:none;"></iframe></object>`;
     }, 400);
 }
 
