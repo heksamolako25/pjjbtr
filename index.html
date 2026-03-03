@@ -132,19 +132,17 @@ header h1{
 #pdfContainer {
     margin-top: 15px;
     width: 100%;
-    height: 65vh; /* Menggunakan 65% tinggi layar hp */
-    overflow: auto;
-    -webkit-overflow-scrolling: touch; /* Scroll halus di iOS */
-    border: 1px solid #eee;
+    height: 70vh; /* Tinggi area pratinjau */
+    border: 1px solid #ccc;
     border-radius: 10px;
-    background: #f9f9f9;
+    overflow: hidden; /* Agar tidak double scroll */
+    background: #525659; /* Warna background viewer PDF */
 }
 
 #pdfContainer iframe {
     width: 100%;
     height: 100%;
     border: none;
-    display: block;
 }
 
 @keyframes zoomIn{
@@ -256,16 +254,18 @@ function closeModal(id){
 function viewPDF(file){
     const container = document.getElementById("pdfContainer");
     
-    // Memberikan feedback visual saat loading
-    container.innerHTML = '<p style="padding: 50px 10px; color: #999;">Memuat dokumen...</p>';
+    // Feedback loading
+    container.innerHTML = '<p style="padding: 50px 10px; color: white; text-align:center;">Memuat dokumen...</p>';
     
-    // Gunakan setTimeout agar transisi mulus
+    // Mendapatkan URL absolut file PDF Anda di GitHub
+    const pdfUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) + file;
+    
+    // Solusi terakhir: Menggunakan PDF.js viewer (via Cloudflare) 
+    // Ini akan merender PDF secara manual sehingga PASTI muncul dan BISA di-scroll
+    const viewerUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(pdfUrl)}`;
+
     setTimeout(() => {
-        // Kita menggunakan URL absolut agar lebih stabil di berbagai browser mobile
-        const fullUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) + file;
-        
-        // Membuat iframe dengan atribut agar tidak langsung download di mobile
-        container.innerHTML = `<iframe src="${fullUrl}#toolbar=0&navpanes=0&scrollbar=1" type="application/pdf"></iframe>`;
+        container.innerHTML = `<iframe src="${viewerUrl}" allow="fullscreen"></iframe>`;
     }, 300);
 }
 
@@ -280,3 +280,4 @@ window.onclick=function(event){
 
 </body>
 </html>
+
